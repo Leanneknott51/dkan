@@ -1,11 +1,24 @@
 services:
-  common.factory:
-    class: Drupal\common\Service\Factory
+  dkan.common.docs:
+    class: \Drupal\common\Docs
+    arguments:
+      - '@module_handler'
+      - '@request_stack'
+
+  dkan.common.job_store:
+    class: \Drupal\common\Storage\JobStoreFactory
+    arguments:
+      - '@database'
+
   plugin.manager.common.data_modifier:
     class: \Drupal\common\Plugin\DataModifierManager
     parent: default_plugin_manager
+
+  # @expectedDeprecation
   common.docs:
     class: \Drupal\common\Docs
     arguments:
       - '@module_handler'
       - '@request_stack'
+
+

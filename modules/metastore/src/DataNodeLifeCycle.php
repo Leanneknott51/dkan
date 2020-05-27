@@ -4,11 +4,18 @@ namespace Drupal\metastore;
 
 use Drupal\common\AbstractDataNodeLifeCycle;
 use Drupal\common\UrlHostTokenResolver;
+use Drupal\Core\Entity\EntityInterface;
 
 /**
  * DataNodeLifeCycle.
  */
 class DataNodeLifeCycle extends AbstractDataNodeLifeCycle {
+
+  private $fileMapper;
+
+  public function setFileMapper(FileMapper $fileMapper) {
+    $this->fileMapper = $fileMapper;
+  }
 
   /**
    * Presave.
@@ -75,7 +82,7 @@ class DataNodeLifeCycle extends AbstractDataNodeLifeCycle {
     $metadata = $this->getMetaData();
     $host = \Drupal::request()->getHost();
     if (isset($metadata->data->downloadURL)) {
-      $metadata->data->downloadURL = Phase2::register($metadata->data->downloadURL);
+      $metadata->data->downloadURL = FileMapper::register($metadata->data->downloadURL);
       $this->setMetadata($metadata);
     }
   }

@@ -1,8 +1,7 @@
 <?php
 
-namespace Drupal\datastore\Storage;
+namespace Drupal\common\Storage;
 
-use Drupal\common\Storage\AbstractDatabaseTable;
 use Procrastinator\Job\Job;
 use Drupal\Core\Database\Connection;
 

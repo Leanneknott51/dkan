@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\metastore\Unit;
+namespace Drupal\Tests\metastore;
 
 use Drupal\Core\DependencyInjection\Container;
 use Drupal\Core\Entity\EntityInterface;
@@ -75,12 +75,15 @@ class DataNodeLifeCycleTest extends TestCase {
       ->add(Node::class, "set", NULL, "metadata")
       ->getMock();
 
+    // Test that the downloadUrl is being registered correctly with the
+    // FileMapper.
+
     $lifeCycle = new DataNodeLifeCycle($node);
     $lifeCycle->presave();
 
-    $metadata = $nodeChain->getStoredInput("metadata");
+    $inputs = $nodeChain->getStoredInput("fileMapperRegister");
 
-    $this->assertTrue((substr_count($metadata[1], UrlHostTokenResolver::TOKEN) > 0));
+    $this->assertNotEmpty($inputs);
   }
 
 }

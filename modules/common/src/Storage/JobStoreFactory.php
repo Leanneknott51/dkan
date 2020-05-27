@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\datastore\Storage;
+namespace Drupal\common\Storage;
 
 use Contracts\FactoryInterface;
 use Drupal\Core\Database\Connection;
