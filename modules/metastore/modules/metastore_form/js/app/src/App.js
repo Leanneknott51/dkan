@@ -5,9 +5,10 @@ import 'bootstrap-lite/lib.bootstrap.css';
 import ToastBox, { toast } from "react-toastbox";
 import './App.scss';
 import axios from "axios";
+import { dcDateTimeWidget } from "./components/widgets/dcDateTimeWidget";
 
 function App({ tempUUID, isNew }) {
-  const baseUrl = "";
+  const baseUrl = "http://localtest.me:32772/";
 
   let history = useHistory();
 
@@ -53,7 +54,7 @@ function App({ tempUUID, isNew }) {
   }, [identifier, hasBeenUpdated]);
 
   useEffect(() => {
-    if (message.length > 0) {
+    if (message == 'undefined' ) {
       toast.success(message);
     }
   }, [message]);
@@ -125,6 +126,10 @@ function App({ tempUUID, isNew }) {
     });
   }
 
+  const widgets = {
+    dcDate: dcDateTimeWidget
+  };
+
   return (
     <>
       <ToastBox
@@ -136,6 +141,7 @@ function App({ tempUUID, isNew }) {
       <button className="btn btn-default" type="button" onClick={event =>  window.location.href='/admin/content/datasets'}>Back to Datasets</button>
       <Form
         id="dc-json-editor"
+        widgets={widgets}
         schema={schema}
         fields={fields}
         formData={formData}

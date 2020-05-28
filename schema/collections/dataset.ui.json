@@ -38,7 +38,16 @@
     "ui:emptyValue": "public"
   },
   "modified": {
-    "ui:placeholder": "YYYY-MM-DD"
+    "ui:widget": "dcDate",
+    "ui:options": {
+      "yearsRange": [1970, 2030],
+      "hideNowButton": true
+    },
+    "conditional": {
+      "Repeating Interval?": {
+        "ui:widget": "radio"
+      }
+    }
   },
   "describedBy": {
     "ui:placeholder": "http://"
