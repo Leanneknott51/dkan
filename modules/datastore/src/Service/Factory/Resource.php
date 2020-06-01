@@ -6,7 +6,7 @@ use Contracts\FactoryInterface;
 use Drupal\Core\Entity\EntityRepository;
 use Drupal\Core\File\FileSystem;
 use Drupal\datastore\Service\Resource as Instance;
-use Drupal\datastore\Storage\JobStoreFactory;
+use Drupal\common\Storage\JobStoreFactory;
 
 /**
  * Class Resource.

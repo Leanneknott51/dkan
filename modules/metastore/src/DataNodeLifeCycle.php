@@ -17,6 +17,13 @@ class DataNodeLifeCycle extends AbstractDataNodeLifeCycle {
     $this->fileMapper = $fileMapper;
   }
 
+  private function getFileMapper() {
+    if (!isset($this->fileMapper)) {
+      throw new \Exception("FileMapper not set.");
+    }
+    return $this->fileMapper;
+  }
+
   /**
    * Presave.
    *
@@ -80,41 +87,10 @@ class DataNodeLifeCycle extends AbstractDataNodeLifeCycle {
    */
   private function distributionPresave() {
     $metadata = $this->getMetaData();
-    $host = \Drupal::request()->getHost();
     if (isset($metadata->data->downloadURL)) {
-      $metadata->data->downloadURL = FileMapper::register($metadata->data->downloadURL);
+      $metadata->data->downloadURL = $this->getFileMapper()->register($metadata->data->downloadURL);
       $this->setMetadata($metadata);
     }
-  }
-
-  /**
-   * Private.
-   */
-  private function unparseUrl($parsedUrl) {
-    $url = '';
-    $urlParts = [
-      'scheme',
-      'host',
-      'port',
-      'user',
-      'pass',
-      'path',
-      'query',
-      'fragment',
-    ];
-
-    foreach ($urlParts as $part) {
-      if (!isset($parsedUrl[$part])) {
-        continue;
-      }
-      $url .= ($part == "port") ? ':' : '';
-      $url .= ($part == "query") ? '?' : '';
-      $url .= ($part == "fragment") ? '#' : '';
-      $url .= $parsedUrl[$part];
-      $url .= ($part == "scheme") ? '://' : '';
-    }
-
-    return $url;
   }
 
 }

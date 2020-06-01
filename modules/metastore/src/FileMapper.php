@@ -2,32 +2,37 @@
 
 namespace Drupal\metastore;
 
-use Drupal\Core\StreamWrapper\StreamWrapperManagerInterface;
 use Drupal\common\Storage\JobStoreFactory;
-use Drupal\harvest\Utility\FileHelper;
+use Drupal\common\Util\DrupalFiles;
 use FileFetcher\FileFetcher;
+use FileFetcher\Processor\Remote;
 use Procrastinator\Result;
 
 class FileMapper {
 
   private $jobStore;
-  private $fileFetcherProcessors;
-  private $fileHelper;
-  private $streamWrapperManager;
+  private $drupalFiles;
 
-  public function __construct(JobStoreFactory $jobStoreFactory, FileHelper $fileHelper, StreamWrapperManagerInterface $streamWrapperManager, array $fileFetcherProcessors) {
+  private $fileFetcherProcessors;
+
+  public function __construct(JobStoreFactory $jobStoreFactory, DrupalFiles $drupalFiles) {
     $this->jobStore = $jobStoreFactory->getInstance(FileMapper::class);
+    $this->drupalFiles = $drupalFiles;
+    $this->fileFetcherProcessors = [
+      Remote::class
+    ];
+  }
+
+  public function setFileFetcherProcessors(array $fileFetcherProcessors) {
     $this->fileFetcherProcessors = $fileFetcherProcessors;
-    $this->fileHelper = $fileHelper;
-    $this->streamWrapperManager = $streamWrapperManager;
   }
 
   public function register(string $url) : string {
     $uuid = md5($url);
 
-    if (!self::exists($uuid)) {
+    if (!$this->exists($uuid)) {
       $directory = $this->getLocalDirectory($uuid);
-      $this->fileHelper->prepareDir($directory);
+      $this->drupalFiles->getFilesystem()->prepareDirectory($directory);
 
       $this->getFileFetcher($uuid, $url);
 
@@ -40,7 +45,7 @@ class FileMapper {
     if ($this->exists($uuid)) {
       $ourselves = $this->getFileFetcher($uuid);
       if ($ourselves->getResult()->getStatus() == Result::DONE) {
-        return $this->streamWrapperManager->getViaUri($ourselves->getStateProperty("destination"));
+        return $this->drupalFiles->fileCreateUrl($ourselves->getStateProperty("destination"));
       }
     }
     throw new \Exception("Unknown URL.");
@@ -62,7 +67,7 @@ class FileMapper {
   }
 
   private function getLocalDirectory($uuid) {
-    $publicPath = $this->fileHelper->defaultSchemeDirectory();
+    $publicPath = $this->drupalFiles->getPublicFilesDirectory();
     return $publicPath . '/distributions/' . $uuid;
   }
 

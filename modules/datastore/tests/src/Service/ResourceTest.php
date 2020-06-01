@@ -10,8 +10,8 @@ use Drupal\Core\Field\Plugin\DataType\FieldItem;
 use Drupal\node\Entity\Node;
 use MockChain\Chain;
 use Drupal\datastore\Service\Resource as Service;
-use Drupal\datastore\Storage\JobStore;
-use Drupal\datastore\Storage\JobStoreFactory;
+use Drupal\common\Storage\JobStore;
+use Drupal\common\Storage\JobStoreFactory;
 
 /**
  *

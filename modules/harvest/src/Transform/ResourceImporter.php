@@ -4,7 +4,6 @@ namespace Drupal\harvest\Transform;
 
 use Drupal\Core\Site\Settings;
 use Harvest\ETL\Transform\Transform;
-use Drupal\harvest\Utility\FileHelperTrait;
 
 /**
  * Defines a transform that saves the resources from a dataset.
@@ -13,7 +12,15 @@ use Drupal\harvest\Utility\FileHelperTrait;
  */
 class ResourceImporter extends Transform {
 
-  use FileHelperTrait;
+  /**
+   * @var \Drupal\common\Util\DrupalFiles
+   */
+  private $drupalFiles;
+
+  public function __construct($harvest_plan) {
+    parent::__construct($harvest_plan);
+    $this->drupalFiles = \Drupal::service('dkan.common.drupal_files');
+  }
 
   /**
    * Inherited.
@@ -114,12 +121,10 @@ class ResourceImporter extends Transform {
 
     $targetDir = 'public://distribution/' . $dataset_id;
 
-    $fileHelper = $this->getFileHelper();
-
-    $fileHelper->prepareDir($targetDir);
+    $this->drupalFiles->getFilesystem()->prepareDirectory($targetDir);
 
     // Abort if file can't be saved locally.
-    if (!($path = $fileHelper->retrieveFile($url, $targetDir))) {
+    if (!($path = $this->drupalFiles->retrieveFile($url, $targetDir))) {
       return FALSE;
     }
 
@@ -127,7 +132,7 @@ class ResourceImporter extends Transform {
       return file_create_url($path->uri->value);
     }
     else {
-      return $fileHelper->fileCreate($path);
+      return $this->drupalFiles->fileCreateUrl($path);
     }
   }
 

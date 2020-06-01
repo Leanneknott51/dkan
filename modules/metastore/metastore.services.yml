@@ -53,6 +53,8 @@ services:
     class: \Drupal\metastore\FileMapper
     arguments:
       - '@dkan.common.job_store'
+      - '@dkan.common.drupal_files'
+      - '@stream_wrapper_manager'
 
   # @expectedDeprecation
   metastore.service:

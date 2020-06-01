@@ -1,21 +1,21 @@
 <?php
 
-use Drupal\datastore\Storage\JobStore;
-use Drupal\datastore\Storage\JobStoreFactory;
-use Drupal\datastore\Storage\DatabaseTable;
-use PHPUnit\Framework\TestCase;
-use Drupal\datastore\Service;
-use Drupal\Component\DependencyInjection\Container;
-use MockChain\Options;
-use MockChain\Chain;
-use Drupal\datastore\Service\Factory\Resource as ResourceServiceFactory;
-use Drupal\datastore\Service\Factory\Import as ImportServiceFactory;
-use Drupal\Core\Queue\QueueFactory;
-use Drupal\datastore\Service\Resource as ResourceService;
-use Drupal\datastore\Service\Import as ImportService;
 use Dkan\Datastore\Resource;
-use Procrastinator\Result;
+use Drupal\Component\DependencyInjection\Container;
 use Drupal\Core\Queue\Memory;
+use Drupal\Core\Queue\QueueFactory;
+use Drupal\common\Storage\JobStore;
+use Drupal\common\Storage\JobStoreFactory;
+use Drupal\datastore\Service;
+use Drupal\datastore\Service\Factory\Import as ImportServiceFactory;
+use Drupal\datastore\Service\Factory\Resource as ResourceServiceFactory;
+use Drupal\datastore\Service\Import as ImportService;
+use Drupal\datastore\Service\Resource as ResourceService;
+use Drupal\datastore\Storage\DatabaseTable;
+use MockChain\Chain;
+use MockChain\Options;
+use PHPUnit\Framework\TestCase;
+use Procrastinator\Result;
 
 /**
  *

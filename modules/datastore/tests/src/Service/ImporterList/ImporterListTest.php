@@ -5,14 +5,14 @@ use Dkan\Datastore\Resource;
 use Drupal\datastore\Service\Factory\Resource as ResourceFactory;
 use Drupal\datastore\Service\ImporterList\ImporterList;
 use Drupal\datastore\Service\Resource as ResourceService;
-use Drupal\datastore\Storage\JobStore;
+use Drupal\common\Storage\JobStore;
 use MockChain\Sequence;
 use FileFetcher\FileFetcher;
 use MockChain\Chain;
 use MockChain\Options;
 use PHPUnit\Framework\TestCase;
 use Procrastinator\Result;
-use Drupal\datastore\Storage\JobStoreFactory;
+use Drupal\common\Storage\JobStoreFactory;
 use Drupal\datastore\Service\Factory\Import as ImportFactory;
 use Drupal\datastore\Service\Import as ImportService;
 

@@ -5,7 +5,7 @@ namespace Drupal\datastore\Service;
 use CsvParser\Parser\Csv;
 use Dkan\Datastore\Importer;
 use Drupal\datastore\Storage\DatabaseTable;
-use Drupal\datastore\Storage\JobStoreFactory;
+use Drupal\common\Storage\JobStoreFactory;
 use Procrastinator\Result;
 use Dkan\Datastore\Resource;
 use Drupal\datastore\Storage\DatabaseTableFactory;

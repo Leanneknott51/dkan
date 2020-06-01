@@ -10,6 +10,12 @@ services:
     arguments:
       - '@database'
 
+  dkan.common.drupal_files:
+    class: \Drupal\common\Util\DrupalFiles
+    arguments:
+      - '@file_system'
+      - '@stream_wrapper_manager'
+
   plugin.manager.common.data_modifier:
     class: \Drupal\common\Plugin\DataModifierManager
     parent: default_plugin_manager

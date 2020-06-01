@@ -1,11 +1,11 @@
 <?php
 
-use Drupal\datastore\Storage\JobStoreFactory;
+use Drupal\common\Storage\JobStoreFactory;
 use PHPUnit\Framework\TestCase;
 use Drupal\datastore\Service\Import as Service;
 use Dkan\Datastore\Resource;
 use MockChain\Chain;
-use Drupal\datastore\Storage\JobStore;
+use Drupal\common\Storage\JobStore;
 use Drupal\datastore\Storage\DatabaseTableFactory;
 use Drupal\datastore\Storage\DatabaseTable;
 use Procrastinator\Result;

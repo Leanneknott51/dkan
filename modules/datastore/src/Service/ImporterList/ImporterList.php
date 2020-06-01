@@ -4,7 +4,7 @@ namespace Drupal\datastore\Service\ImporterList;
 
 use Drupal\datastore\Service\Factory\Import;
 use Drupal\datastore\Service\Factory\Resource;
-use Drupal\datastore\Storage\JobStoreFactory;
+use Drupal\common\Storage\JobStoreFactory;
 use FileFetcher\FileFetcher;
 
 /**

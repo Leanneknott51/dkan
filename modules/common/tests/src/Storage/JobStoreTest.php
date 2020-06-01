@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\datastore\Storage;
+namespace Drupal\Tests\common\Storage;
 
 use Contracts\Mock\Storage\Memory;
 use Drupal\Core\Database\Connection;
@@ -11,13 +11,12 @@ use Drupal\Core\Database\Schema;
 use Drupal\Core\Database\Statement;
 use MockChain\Chain;
 use MockChain\Sequence;
-use Drupal\common\Storage\JobStore
-;
+use Drupal\common\Storage\JobStore;
 use FileFetcher\FileFetcher;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \Drupal\datastore\Storage\JobStore
+ * @coversDefaultClass \Drupal\common\Storage\JobStore
  * @group datastore
  */
 class JobStoreTest extends TestCase {

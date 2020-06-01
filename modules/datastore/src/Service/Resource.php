@@ -2,7 +2,7 @@
 
 namespace Drupal\datastore\Service;
 
-use Drupal\datastore\Storage\JobStoreFactory;
+use Drupal\common\Storage\JobStoreFactory;
 use Procrastinator\Result;
 use FileFetcher\FileFetcher;
 use Dkan\Datastore\Resource as R;

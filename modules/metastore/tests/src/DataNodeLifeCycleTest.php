@@ -4,6 +4,7 @@ namespace Drupal\Tests\metastore;
 
 use Drupal\Core\DependencyInjection\Container;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\metastore\FileMapper;
 use MockChain\Chain;
 use MockChain\Options;
 use Drupal\common\UrlHostTokenResolver;
@@ -75,15 +76,24 @@ class DataNodeLifeCycleTest extends TestCase {
       ->add(Node::class, "set", NULL, "metadata")
       ->getMock();
 
+
+    $fileMapperChain = (new Chain($this))
+      ->add(FileMapper::class, 'register', "12345", 'fileMapperRegister');
+    $fileMapper = $fileMapperChain->getMock();
+
     // Test that the downloadUrl is being registered correctly with the
     // FileMapper.
-
     $lifeCycle = new DataNodeLifeCycle($node);
+    $lifeCycle->setFileMapper($fileMapper);
     $lifeCycle->presave();
 
-    $inputs = $nodeChain->getStoredInput("fileMapperRegister");
-
+    $inputs = $fileMapperChain->getStoredInput("fileMapperRegister");
     $this->assertNotEmpty($inputs);
+
+    $newdata = $nodeChain->getStoredInput('metadata');
+    $newdata = json_decode($newdata[1]);
+
+    $this->assertNotEquals($metadata->data->downloadURL, $newdata->data->downloadURL);
   }
 
 }
